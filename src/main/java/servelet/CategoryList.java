@@ -103,7 +103,7 @@ public class CategoryList extends HttpServlet {
 				feeds.add(FeedArray[i]);
 			}
 		}
-		
+		//test
 		return feeds;
 	}
 
