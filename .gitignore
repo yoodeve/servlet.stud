@@ -1,0 +1,21 @@
+# [ STS4 ]
+
+# folders
+bin
+target
+.settings
+
+# files
+.classpath
+.project
+.factorypath
+
+
+
+# [ inellij ]
+
+# folders
+.idea
+
+# files
+*.iml
