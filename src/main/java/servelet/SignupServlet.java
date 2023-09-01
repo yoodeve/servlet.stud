@@ -23,6 +23,7 @@ public class SignupServlet extends HttpServlet {
 		System.out.println("회원가입");
 		
 		ResponseUtil.response(response).of(200).body("횐갑완");
+		//ㅅㄷㄴ
 //		ResponseUtil.response(response).of(400).body("횐갑fail");
 		
 	}
