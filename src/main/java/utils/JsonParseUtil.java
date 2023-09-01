@@ -31,12 +31,18 @@ public class JsonParseUtil {
 				jsonData.append(data);
 				
 			} catch (IOException e) {
-				e.printStackTrace();
+				return null;
 			}
 		}
 		Gson gson = new Gson();
 		
 		return gson.fromJson(jsonData.toString(), Map.class);
 	}
+	
+	public static String toJson(Object object) {
+		Gson gson = new Gson();
+		
+		return gson.toJson(object);
+	};
 	
 }

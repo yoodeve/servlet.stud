@@ -1,9 +1,6 @@
 package servelet;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -12,9 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
-
+import utils.JsonParseUtil;
+import utils.ResponseUtil;
 
 @WebServlet("/auth/signup")
 public class SignupServlet extends HttpServlet {
@@ -22,27 +18,12 @@ public class SignupServlet extends HttpServlet {
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		InputStream inputStream =  request.getInputStream();
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+		Map<String, Object> userMap = JsonParseUtil.toMap(request.getInputStream());
 		
-		StringBuilder requestBody = new StringBuilder("");
+		System.out.println("회원가입");
 		
-		while(true) {
-			String data = bufferedReader.readLine();
-			if(data == null) {
-				break;
-			}
-			requestBody.append(data);
-		}
-		Gson gson = new Gson();
-		
-		Map<String, String> userMap = gson.fromJson(requestBody.toString(), Map.class);
-		
-		System.out.println(userMap);
-		System.out.println(userMap.get("username"));
-		System.out.println(userMap.get("password"));
-		System.out.println(userMap.get("name"));
-		System.out.println(userMap.get("email"));
+		ResponseUtil.response(response).of(200).body("횐갑완");
+//		ResponseUtil.response(response).of(400).body("횐갑fail");
 		
 	}
 
