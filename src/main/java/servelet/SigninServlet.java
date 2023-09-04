@@ -2,6 +2,7 @@ package servelet;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.servlet.ServletException;
@@ -12,26 +13,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import data.UserData;
 import entity.User;
+import utils.JsonParseUtil;
 import utils.ResponseUtil;
 
-@WebServlet("/auth/signup/duplicate/username")
-public class DuplicateUsername extends HttpServlet {
+@WebServlet("/signin")
+public class SigninServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Map<String, Object> signinUser = JsonParseUtil.toMap(request.getInputStream());
 
-//	private String[] usernames = {"aaa","bbb","ccc"};
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String username = request.getParameter("username");
 		Boolean responseData = false;
 		
 		for (User user : UserData.userList) {
-			if(Objects.equals(user.getUsername(), username)) {		
+			if(Objects.equals(user.getUsername(), signinUser.get("username")) 
+					&& Objects.equals(user.getPassword(), signinUser.get("password"))) {
 				responseData = true;
 				break;
 			}
 		}
-		
 		ResponseUtil.response(response).of(200).body(responseData);
 	}
 

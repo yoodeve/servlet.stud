@@ -1,6 +1,7 @@
 package servelet;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import data.UserData;
+import entity.User;
 import utils.JsonParseUtil;
 import utils.ResponseUtil;
 
@@ -20,11 +23,22 @@ public class SignupServlet extends HttpServlet {
 		
 		Map<String, Object> userMap = JsonParseUtil.toMap(request.getInputStream());
 		
-		System.out.println("회원가입");
+		System.out.println(userMap);
 		
-		ResponseUtil.response(response).of(200).body("횐갑완");
-		//ㅅㄷㄴ
-//		ResponseUtil.response(response).of(400).body("횐갑fail");
+		List<User> userList = UserData.userList;
+		
+		User user = User.builder()
+				.userId(userList.size()+1)
+				.username((String) userMap.get("username"))
+				.password((String) userMap.get("password"))
+				.name((String) userMap.get("name"))
+				.email((String) userMap.get("email"))
+				.build();
+		userList.add(user);
+		
+		// 201:생성(create)코드 
+		ResponseUtil.response(response).of(201).body(true);
+		
 		
 	}
 
