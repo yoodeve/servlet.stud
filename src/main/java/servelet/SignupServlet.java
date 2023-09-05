@@ -34,11 +34,11 @@ public class SignupServlet extends HttpServlet {
 				.name((String) userMap.get("name"))
 				.email((String) userMap.get("email"))
 				.build();
+		
 		userList.add(user);
 		
-		// 201:생성(create)코드 
+		// 201:생성(create)코드
 		ResponseUtil.response(response).of(201).body(true);
-		
 		
 	}
 
